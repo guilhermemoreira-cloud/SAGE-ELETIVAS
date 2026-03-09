@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+
+    <!-- Meta tags PWA -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#2c5f2d" />
+
+    <title>SAGE 2026 - Diário do Professor</title>
+    <base href="/sage-2026/" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="manifest" href="manifest.json" />
+
+    <style>
+      /* Toggle Switch */
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        margin-right: 10px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--danger);
+        transition: 0.3s;
+        border-radius: 34px;
+      }
+
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .toggle-slider {
+        background-color: var(--success);
+      }
+
+      input:checked + .toggle-slider:before {
+        transform: translateX(26px);
+      }
+
+      .aluno-chamada-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid var(--bg-gray);
+        background: var(--bg-white);
+      }
+
+      .aluno-info {
+        flex: 1;
+        margin-left: 1rem;
+      }
+
+      .aluno-info strong {
+        color: var(--primary);
+      }
+
+      .aluno-turma {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-left: 0.5rem;
+        background: var(--bg-gray);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .eletiva-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .eletiva-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .eletiva-card.selected {
+        border: 3px solid var(--primary);
+        background: linear-gradient(135deg, var(--bg-white), var(--bg-light));
+      }
+
+      .nota-input {
+        width: 80px;
+        padding: 0.5rem;
+        border: 2px solid var(--bg-gray);
+        border-radius: 8px;
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .aluno-nota-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid var(--bg-gray);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Cabeçalho -->
+      <header class="app-header">
+        <div class="header-top">
+          <div class="logo-area">
+            <i class="fas fa-graduation-cap"></i>
+            <div class="school-info">
+              <h1>EEMTI FILGUEIRAS LIMA</h1>
+              <span class="sage-badge">SAGE 2026 - Gestão de Eletivas</span>
+            </div>
+          </div>
+          <div class="semestre-indicator" id="semestreIndicator">
+            <span class="semestre-badge" id="semestreAtivoBadge"
+              >2026.1 - ATIVO</span
+            >
+          </div>
+          <div class="header-actions">
+            <div class="user-info">
+              <i class="fas fa-user-circle"></i>
+              <span id="userName">Professor</span>
+              <span class="user-role" id="userRole">Professor</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button class="logout-btn" onclick="fazerLogout()">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- MÓDULO PROFESSOR -->
+      <section class="view active">
+        <div class="professor-dashboard">
+          <div class="dashboard-header">
+            <h2>
+              <i class="fas fa-chalkboard-teacher"></i> Diário do Professor -
+              <span id="professorSemestre">2026.1</span>
+            </h2>
+            <div class="professor-info-header" id="professorInfoHeader"></div>
+          </div>
+
+          <!-- Tabs do professor -->
+          <div class="professor-tabs">
+            <button class="tab-btn active" onclick="mudarTab('dashboard')">
+              <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button class="tab-btn" onclick="mudarTab('historico')">
+              <i class="fas fa-history"></i> Histórico
+            </button>
+          </div>
+
+          <!-- TAB DASHBOARD -->
+          <div id="tab-dashboard" class="tab-pane active">
+            <h3>Minhas Eletivas - <span id="semestreAtual">2026.1</span></h3>
+            <div class="eletivas-cards" id="professorEletivasCards">
+              <p class="empty-state">Carregando eletivas...</p>
+            </div>
+          </div>
+
+          <!-- TAB HISTÓRICO -->
+          <div id="tab-historico" class="tab-pane">
+            <h3>Histórico de Aulas</h3>
+
+            <div class="historico-semestre-selector">
+              <button
+                class="btn-toggle active"
+                onclick="mudarHistoricoSemestre('2026-1')"
+                id="hist2026-1"
+              >
+                2026.1
+              </button>
+              <button
+                class="btn-toggle"
+                onclick="mudarHistoricoSemestre('2026-2')"
+                id="hist2026-2"
+              >
+                2026.2
+              </button>
+            </div>
+
+            <div class="historico-filters">
+              <select id="filterEletivaHistorico" onchange="filtrarHistorico()">
+                <option value="">Todas as eletivas</option>
+              </select>
+            </div>
+
+            <div id="historicoAulas" class="historico-container">
+              <p class="empty-state">Nenhum registro encontrado</p>
+            </div>
+          </div>
+
+          <!-- AÇÕES DA ELETIVA SELECIONADA -->
+          <div
+            id="acoesEletiva"
+            style="
+              display: none;
+              justify-content: center;
+              gap: 1rem;
+              margin: 2rem 0;
+            "
+          >
+            <button class="btn-primary" onclick="abrirRegistroFrequencia()">
+              <i class="fas fa-calendar-check"></i> Registrar Frequência
+            </button>
+            <button class="btn-secondary" onclick="abrirRegistroNotas()">
+              <i class="fas fa-star"></i> Lançar Notas
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- MODAL DE FREQUÊNCIA -->
+    <div id="modalFrequencia" class="modal">
+      <div class="modal-content" style="max-width: 800px">
+        <div class="modal-header">
+          <h3>Registrar Frequência</h3>
+          <button class="close-modal" onclick="fecharModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Data da Aula *</label>
+            <input type="date" id="dataAula" required />
+          </div>
+
+          <div class="form-group">
+            <label>Conteúdo Trabalhado *</label>
+            <textarea
+              id="conteudoAula"
+              rows="3"
+              required
+              placeholder="Descreva o conteúdo da aula..."
+            ></textarea>
+          </div>
+
+          <div class="chamada-resumo" id="chamadaResumo">
+            Presentes: <span id="presentesCount">0</span> | Ausentes:
+            <span id="ausentesCount">0</span>
+          </div>
+
+          <div
+            class="alunos-chamada"
+            id="listaAlunosChamada"
+            style="max-height: 400px; overflow-y: auto"
+          ></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModal()">
+            Cancelar
+          </button>
+          <button class="btn-primary" onclick="salvarFrequencia()">
+            <i class="fas fa-save"></i> Salvar Frequência
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE NOTAS -->
+    <div id="modalNotas" class="modal">
+      <div class="modal-content" style="max-width: 800px">
+        <div class="modal-header">
+          <h3>Lançar Notas</h3>
+          <button class="close-modal" onclick="fecharModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Bimestre:</label>
+            <select
+              id="selectBimestre"
+              class="form-control"
+              onchange="carregarAlunosParaNotas()"
+            >
+              <option value="1">1º Bimestre</option>
+              <option value="2">2º Bimestre</option>
+              <option value="3">3º Bimestre</option>
+              <option value="4">4º Bimestre</option>
+            </select>
+          </div>
+
+          <div style="margin: 1rem 0">
+            <button class="btn-secondary btn-small" onclick="marcarTodosDez()">
+              <i class="fas fa-check-square"></i> Todos 10
+            </button>
+            <button
+              class="btn-secondary btn-small"
+              onclick="limparTodasNotas()"
+            >
+              <i class="fas fa-eraser"></i> Limpar
+            </button>
+          </div>
+
+          <div
+            class="alunos-notas"
+            id="listaAlunosNotas"
+            style="max-height: 400px; overflow-y: auto"
+          ></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModal()">
+            Cancelar
+          </button>
+          <button class="btn-primary" onclick="salvarNotas()">
+            <i class="fas fa-save"></i> Salvar Notas
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETALHES -->
+    <div id="modalDetalhes" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Detalhes</h3>
+          <button class="close-modal" onclick="fecharModal()">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer" id="modalFooter"></div>
+      </div>
+    </div>
+
+    <!-- MODAL CONFIRMAÇÃO -->
+    <div id="modalConfirmacao" class="modal">
+      <div class="modal-content modal-small">
+        <div class="modal-header">
+          <h3 id="confirmTitle">Confirmação</h3>
+        </div>
+        <div class="modal-body" id="confirmBody"></div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="fecharModalConfirmacao()">
+            Cancelar
+          </button>
+          <button class="btn-primary" id="confirmActionBtn">Confirmar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Scripts do sistema -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/init-data.js"></script>
+    <script src="js/sincronizacao.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-service.js"></script>
+    <script src="js/professor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+
+    <!-- Meta tags PWA -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="green" />
+    <meta name="theme-color" content="#2c5f2d" />
+
+    <title>SAGE 2026 - Sistema de Gestão de Eletivas</title>
+
+    <!-- Meta tags para GitHub Pages -->
+    <base href="/sage-2026/" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Ícones para Apple -->
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Cabeçalho -->
+      <header class="app-header">
+        <div class="header-top">
+          <div class="logo-area">
+            <i class="fas fa-graduation-cap"></i>
+            <div class="school-info">
+              <h1>EEMTI FILGUEIRAS LIMA</h1>
+              <span class="sage-badge">SAGE 2026 - Gestão de Eletivas</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- TELA DE SELEÇÃO DE PERFIL -->
+      <section id="perfil-view" class="view active">
+        <div class="login-container">
+          <div class="login-box">
+            <div class="school-brand">
+              <i class="fas fa-users"></i>
+              <h2>Sistema de Gestão de Eletivas</h2>
+              <p style="color: var(--text-light); margin-top: 0.5rem">
+                Escolha o perfil de acesso
+              </p>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin: 2rem 0;
+              "
+            >
+              <a
+                href="selecionar-professor.html"
+                class="btn-primary"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 1rem;
+                  padding: 1.5rem;
+                  font-size: 1.2rem;
+                  text-decoration: none;
+                "
+              >
+                <i
+                  class="fas fa-chalkboard-teacher"
+                  style="font-size: 2rem"
+                ></i>
+                ACESSAR COMO PROFESSOR
+              </a>
+
+              <a
+                href="selecionar-gestor.html"
+                class="btn-secondary"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 1rem;
+                  padding: 1.5rem;
+                  font-size: 1.2rem;
+                  text-decoration: none;
+                  background: var(--primary);
+                  color: white;
+                "
+              >
+                <i class="fas fa-user-tie" style="font-size: 2rem"></i>
+                ACESSAR COMO GESTOR
+              </a>
+            </div>
+
+            <div class="login-info">
+              <p><strong>📋 SAGE 2026</strong></p>
+              <p>EEMTI Filgueiras Lima</p>
+              <p><small>Versão 2.0 - Março 2026</small></p>
+              <p>
+                <small
+                  ><i class="fas fa-mobile-alt"></i> Instalável como
+                  aplicativo</small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+      // Configurar base URL para GitHub Pages
+      const baseUrl = "/sage-2026/";
+
+      // Registrar Service Worker para PWA
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js")
+            .then((reg) =>
+              console.log("✅ Service Worker registrado:", reg.scope),
+            )
+            .catch((err) => console.log("❌ Erro no Service Worker:", err));
+        });
+      }
+    </script>
+    <script src="js/utils.js"></script>
+    <script>
+      // Carregar tema salvo
+      if (typeof window.carregarTheme === "function") {
+        window.carregarTheme();
+      }
+    </script>
+  </body>
+</html>
