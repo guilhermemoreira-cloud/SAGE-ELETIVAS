@@ -1,8 +1,4 @@
-// js/firebase-service.js - Serviços do Firebase
-
 class FirebaseService {
-  // ==================== PROFESSORES ====================
-
   static async carregarProfessores() {
     try {
       const snapshot = await db.collection("professores").get();
@@ -34,8 +30,6 @@ class FirebaseService {
       return null;
     }
   }
-
-  // ==================== ALUNOS ====================
 
   static async carregarAlunos() {
     try {
@@ -69,8 +63,6 @@ class FirebaseService {
     }
   }
 
-  // ==================== ELETIVAS ====================
-
   static async carregarEletivas() {
     try {
       const snapshot = await db.collection("eletivas").get();
@@ -103,8 +95,6 @@ class FirebaseService {
     }
   }
 
-  // ==================== MATRÍCULAS ====================
-
   static async carregarMatriculas() {
     try {
       const snapshot = await db.collection("matriculas").get();
@@ -136,8 +126,6 @@ class FirebaseService {
       return null;
     }
   }
-
-  // ==================== REGISTROS DE AULA ====================
 
   static async carregarRegistros() {
     try {
@@ -193,8 +181,6 @@ class FirebaseService {
       return [];
     }
   }
-
-  // ==================== NOTAS ====================
 
   static async carregarNotas() {
     try {
@@ -258,8 +244,6 @@ class FirebaseService {
       return [];
     }
   }
-
-  // ==================== SINCRONIZAÇÃO ====================
 
   static async sincronizarDadosIniciais() {
     console.log("🔄 Sincronizando dados com Firebase...");

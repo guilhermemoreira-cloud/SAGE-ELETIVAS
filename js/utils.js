@@ -1,5 +1,3 @@
-// js/utils.js - Funções utilitárias
-
 function showToast(message, type = "success") {
   const toast = document.getElementById("toast");
   if (!toast) {

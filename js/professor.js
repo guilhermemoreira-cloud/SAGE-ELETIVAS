@@ -1,5 +1,3 @@
-// js/professor.js - Lógica do professor com Firebase
-
 let professorAtual = null;
 let eletivaSelecionada = null;
 
@@ -8,24 +6,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   carregarTheme();
 
-  // Carregar professor selecionado
   const profStorage = localStorage.getItem("professor_atual");
   if (!profStorage) {
-    window.location.href = "selecionar-professor.html";
+    window.location.href = "/SAGE-ELETIVAS/selecionar-professor.html";
     return;
   }
 
   professorAtual = JSON.parse(profStorage);
 
-  // Carregar estado do localStorage primeiro
   if (typeof carregarEstado === "function") {
     carregarEstado();
   }
 
-  // Sincronizar com Firebase
   await FirebaseService.sincronizarDadosIniciais();
 
-  // Atualizar interface
   document.getElementById("userName").textContent = professorAtual.nome;
   document.getElementById("userRole").textContent = "Professor";
   document.getElementById("professorInfoHeader").innerHTML =
@@ -35,16 +29,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     atualizarIndicadorSemestre();
   }
 
-  // Carregar eletivas do professor
   carregarEletivasProfessor();
   carregarSelectHistorico();
 
-  // Setar data atual
   const hoje = new Date().toISOString().split("T")[0];
   document.getElementById("dataAula").value = hoje;
 });
-
-// ==================== CARREGAR ELETIVAS ====================
 
 function carregarEletivasProfessor() {
   const container = document.getElementById("professorEletivasCards");
@@ -79,8 +69,6 @@ function carregarEletivasProfessor() {
   });
 }
 
-// ==================== SELEÇÃO DE ELETIVA ====================
-
 function selecionarEletiva(eletivaId) {
   eletivaSelecionada = eletivaId;
 
@@ -91,8 +79,6 @@ function selecionarEletiva(eletivaId) {
 
   document.getElementById("acoesEletiva").style.display = "flex";
 }
-
-// ==================== REGISTRO DE FREQUÊNCIA ====================
 
 function abrirRegistroFrequencia() {
   if (!eletivaSelecionada) return;
@@ -187,8 +173,6 @@ async function salvarFrequencia() {
     await FirebaseService.sincronizarDadosIniciais();
   }
 }
-
-// ==================== REGISTRO DE NOTAS ====================
 
 function abrirRegistroNotas() {
   if (!eletivaSelecionada) return;
@@ -289,8 +273,6 @@ async function salvarNotas() {
     await FirebaseService.sincronizarDadosIniciais();
   }
 }
-
-// ==================== HISTÓRICO ====================
 
 function carregarSelectHistorico() {
   const select = document.getElementById("filterEletivaHistorico");
@@ -410,8 +392,6 @@ function verDetalhesRegistro(registro) {
   document.getElementById("modalDetalhes").classList.add("active");
 }
 
-// ==================== FUNÇÕES DE TABS ====================
-
 window.mudarTab = function (tab) {
   document
     .querySelectorAll(".professor-tabs .tab-btn")
@@ -428,14 +408,10 @@ window.mudarTab = function (tab) {
   }
 };
 
-// ==================== LOGOUT ====================
-
 window.fazerLogout = function () {
   localStorage.removeItem("professor_atual");
-  window.location.href = "index.html";
+  window.location.href = "/SAGE-ELETIVAS/index.html";
 };
-
-// ==================== FECHAR MODAIS ====================
 
 window.fecharModal = function () {
   document.getElementById("modalDetalhes").classList.remove("active");

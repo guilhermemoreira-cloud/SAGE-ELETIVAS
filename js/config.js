@@ -1,7 +1,5 @@
-// js/config.js - Configurações do sistema
-
 const CONFIG = {
-  baseUrl: "/sage-2026/",
+  baseUrl: "/SAGE-ELETIVAS/",
 
   storageKeys: {
     alunos: "sage_alunos_2026",

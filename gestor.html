@@ -7,23 +7,21 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
 
-    <!-- Meta tags PWA -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#2c5f2d" />
 
     <title>SAGE 2026 - Painel do Gestor</title>
-    <base href="/sage-2026/" />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="/SAGE-ELETIVAS/css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="/SAGE-ELETIVAS/manifest.json" />
   </head>
   <body>
     <div class="app-container">
-      <!-- Cabeçalho -->
       <header class="app-header">
         <div class="header-top">
           <div class="logo-area">
@@ -54,7 +52,6 @@
         </div>
       </header>
 
-      <!-- MÓDULO GESTOR -->
       <section class="view active">
         <div class="gestor-dashboard">
           <div class="dashboard-header">
@@ -69,7 +66,6 @@
             </div>
           </div>
 
-          <!-- Cards de resumo -->
           <div class="summary-cards">
             <div class="summary-card" onclick="mudarTab('eletivas')">
               <i class="fas fa-chart-pie"></i>
@@ -101,7 +97,6 @@
             </div>
           </div>
 
-          <!-- Tabs do gestor -->
           <div class="gestor-tabs">
             <button class="tab-btn active" onclick="mudarTab('dashboard')">
               <i class="fas fa-home"></i> Dashboard
@@ -126,9 +121,7 @@
             </button>
           </div>
 
-          <!-- Conteúdo das tabs -->
           <div class="tab-content">
-            <!-- TAB DASHBOARD -->
             <div class="tab-pane active" id="tab-dashboard">
               <h3>Visão Geral - <span id="dashboardSemestre">2026.1</span></h3>
               <div id="dashboardResumo" class="dashboard-resumo">
@@ -181,7 +174,6 @@
               </div>
             </div>
 
-            <!-- TAB IMPORTAR DADOS -->
             <div class="tab-pane" id="tab-importar">
               <h3 style="color: var(--primary); margin-bottom: 2rem">
                 <i class="fas fa-cloud-download-alt"></i> Sincronização
@@ -235,7 +227,6 @@
               </div>
             </div>
 
-            <!-- TAB ELETIVAS -->
             <div class="tab-pane" id="tab-eletivas">
               <div
                 style="
@@ -283,7 +274,6 @@
               </div>
             </div>
 
-            <!-- TAB PROFESSORES -->
             <div class="tab-pane" id="tab-professores">
               <h3>Professores</h3>
               <div class="search-box">
@@ -300,7 +290,6 @@
               </div>
             </div>
 
-            <!-- TAB ALUNOS -->
             <div class="tab-pane" id="tab-alunos">
               <h3>Alunos</h3>
               <div class="search-box">
@@ -317,7 +306,6 @@
               </div>
             </div>
 
-            <!-- TAB REGISTROS -->
             <div class="tab-pane" id="tab-registros">
               <h3>Registros de Aulas</h3>
 
@@ -351,7 +339,6 @@
               </div>
             </div>
 
-            <!-- TAB SEMESTRES -->
             <div class="tab-pane" id="tab-semestres">
               <h3>Gerenciar Semestres - 2026</h3>
               <div class="semestres-container">
@@ -374,7 +361,6 @@
       </section>
     </div>
 
-    <!-- MODAIS -->
     <div id="modalDetalhes" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -401,20 +387,16 @@
       </div>
     </div>
 
-    <!-- TOAST -->
     <div id="toast" class="toast"></div>
 
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-    <!-- Scripts do sistema -->
-    <script src="js/utils.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/init-data.js"></script>
-    <script src="js/sincronizacao.js"></script>
-    <script src="js/firebase-config.js"></script>
-    <script src="js/firebase-service.js"></script>
-    <script src="js/gestor.js"></script>
+    <script src="/SAGE-ELETIVAS/js/utils.js"></script>
+    <script src="/SAGE-ELETIVAS/js/storage.js"></script>
+    <script src="/SAGE-ELETIVAS/js/init-data.js"></script>
+    <script src="/SAGE-ELETIVAS/js/sincronizacao.js"></script>
+    <script src="/SAGE-ELETIVAS/js/firebase-config.js"></script>
+    <script src="/SAGE-ELETIVAS/js/firebase-service.js"></script>
+    <script src="/SAGE-ELETIVAS/js/gestor.js"></script>
   </body>
 </html>

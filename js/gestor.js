@@ -1,5 +1,3 @@
-// js/gestor.js - Lógica do gestor com Firebase
-
 let gestorAtual = null;
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -9,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const gestorStorage = localStorage.getItem("gestor_atual");
   if (!gestorStorage) {
-    window.location.href = "selecionar-gestor.html";
+    window.location.href = "/SAGE-ELETIVAS/selecionar-gestor.html";
     return;
   }
 
@@ -37,8 +35,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   carregarTodosDados();
 });
 
-// ==================== FUNÇÕES DE TABS ====================
-
 window.mudarTab = function (tab) {
   document
     .querySelectorAll(".gestor-tabs .tab-btn")
@@ -57,8 +53,6 @@ window.mudarTab = function (tab) {
   if (tab === "dashboard") atualizarDashboard();
 };
 
-// ==================== CARREGAR TODOS OS DADOS ====================
-
 window.carregarTodosDados = function () {
   atualizarCardsResumo();
   atualizarDashboard();
@@ -75,8 +69,6 @@ window.carregarTodosDados = function () {
   document.getElementById("infoEletivas").textContent = state.eletivas.length;
 };
 
-// ==================== ATUALIZAR CARDS DE RESUMO ====================
-
 function atualizarCardsResumo() {
   document.getElementById("totalEletivas").textContent = state.eletivas.length;
   document.getElementById("totalProfessores").textContent =
@@ -85,8 +77,6 @@ function atualizarCardsResumo() {
   document.getElementById("totalMatriculas").textContent =
     state.matriculas.length;
 }
-
-// ==================== ATUALIZAR DASHBOARD ====================
 
 function atualizarDashboard() {
   const eletivasFixas = state.eletivas.filter((e) => e.tipo === "FIXA").length;
@@ -127,8 +117,6 @@ function atualizarDashboard() {
     professoresLimite;
 }
 
-// ==================== ATUALIZAR SELECT DE PROFESSORES ====================
-
 function atualizarSelectProfessores() {
   const select = document.getElementById("filterEletivasProfessor");
   if (!select) return;
@@ -146,8 +134,6 @@ function atualizarSelectProfessores() {
     select.appendChild(option);
   });
 }
-
-// ==================== CARREGAR ELETIVAS ====================
 
 function carregarEletivas() {
   const container = document.getElementById("listaEletivas");
@@ -252,8 +238,6 @@ function verDetalhesEletiva(eletivaId) {
   document.getElementById("modalDetalhes").classList.add("active");
 }
 
-// ==================== CARREGAR PROFESSORES ====================
-
 function carregarProfessores() {
   const container = document.getElementById("listaProfessores");
   const searchTerm =
@@ -297,8 +281,6 @@ function carregarProfessores() {
   });
 }
 
-// ==================== CARREGAR ALUNOS ====================
-
 function carregarAlunos() {
   const container = document.getElementById("listaAlunos");
   const searchTerm =
@@ -341,8 +323,6 @@ function carregarAlunos() {
   });
 }
 
-// ==================== CARREGAR INFO SEMESTRES ====================
-
 function carregarInfoSemestres() {
   const eletivasS1 = state.eletivas.filter(
     (e) => e.semestreId === "2026-1",
@@ -362,8 +342,6 @@ function carregarInfoSemestres() {
   document.getElementById("totalMatriculasS1").textContent = matriculasS1;
   document.getElementById("totalMatriculasS2").textContent = matriculasS2;
 }
-
-// ==================== REGISTROS ====================
 
 function carregarSelectEletivasRegistros() {
   const select = document.getElementById("selectEletivaRegistros");
@@ -431,8 +409,6 @@ async function carregarRegistrosEletiva() {
   document.getElementById("registrosActions").style.display = "block";
   window.eletivaRegistroAtual = parseInt(eletivaId);
 }
-
-// ==================== RELATÓRIOS ====================
 
 async function gerarRelatorioFrequencia() {
   const eletivaId = window.eletivaRegistroAtual;
@@ -543,8 +519,6 @@ async function gerarRelatorioFrequencia() {
   win.print();
 }
 
-// ==================== SINCRONIZAÇÃO ====================
-
 window.sincronizarAgora = async function () {
   showToast("Sincronizando dados...", "info");
   await FirebaseService.sincronizarDadosIniciais();
@@ -555,20 +529,14 @@ window.sincronizarAgora = async function () {
   showToast("Dados sincronizados!", "success");
 };
 
-// ==================== FUNÇÕES DE FILTRO ====================
-
 window.filtrarEletivas = carregarEletivas;
 window.filtrarProfessores = carregarProfessores;
 window.filtrarAlunos = carregarAlunos;
 
-// ==================== LOGOUT ====================
-
 window.fazerLogout = function () {
   localStorage.removeItem("gestor_atual");
-  window.location.href = "index.html";
+  window.location.href = "/SAGE-ELETIVAS/index.html";
 };
-
-// ==================== FECHAR MODAIS ====================
 
 window.fecharModal = function () {
   document.getElementById("modalDetalhes").classList.remove("active");

@@ -7,23 +7,21 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
 
-    <!-- Meta tags PWA -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#2c5f2d" />
 
     <title>SAGE 2026 - Selecionar Gestor</title>
-    <base href="/sage-2026/" />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="/SAGE-ELETIVAS/css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="/SAGE-ELETIVAS/manifest.json" />
   </head>
   <body>
     <div class="app-container">
-      <!-- Cabeçalho -->
       <header class="app-header">
         <div class="header-top">
           <div class="logo-area">
@@ -36,7 +34,6 @@
         </div>
       </header>
 
-      <!-- SELEÇÃO DE GESTOR -->
       <section class="view active">
         <div class="login-container">
           <div class="login-box" style="max-width: 600px">
@@ -67,7 +64,7 @@
             </div>
 
             <div style="text-align: center; margin-top: 1rem">
-              <a href="index.html" class="btn-secondary">
+              <a href="/SAGE-ELETIVAS/index.html" class="btn-secondary">
                 <i class="fas fa-arrow-left"></i> Voltar
               </a>
             </div>
@@ -76,36 +73,31 @@
       </section>
     </div>
 
-    <!-- Toast -->
     <div id="toast" class="toast"></div>
 
-    <script src="js/utils.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/init-data.js"></script>
-    <script src="js/sincronizacao.js"></script>
+    <script src="/SAGE-ELETIVAS/js/utils.js"></script>
+    <script src="/SAGE-ELETIVAS/js/storage.js"></script>
+    <script src="/SAGE-ELETIVAS/js/init-data.js"></script>
+    <script src="/SAGE-ELETIVAS/js/sincronizacao.js"></script>
     <script>
       let gestores = [];
 
       document.addEventListener("DOMContentLoaded", async function () {
         console.log("📋 Página de seleção de gestor carregada");
 
-        // Carregar tema
         if (typeof window.carregarTheme === "function") {
           window.carregarTheme();
         }
 
-        // Carregar estado
         if (typeof window.carregarEstado === "function") {
           window.carregarEstado();
         }
 
-        // Carregar dados do arquivo local
         if (typeof window.carregarDadosDaPlanilha === "function") {
           await window.carregarDadosDaPlanilha();
           window.carregarEstado();
         }
 
-        // Filtrar gestores
         gestores = (window.state?.professores || []).filter(
           (p) =>
             p.perfil === "GESTOR" ||
@@ -188,7 +180,7 @@
                 perfil: gestor.perfil,
               }),
             );
-            window.location.href = "gestor.html";
+            window.location.href = "/SAGE-ELETIVAS/gestor.html";
           };
           container.appendChild(btn);
         });

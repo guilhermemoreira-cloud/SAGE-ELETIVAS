@@ -15,22 +15,17 @@
 
     <title>SAGE 2026 - Sistema de Gestão de Eletivas</title>
 
-    <!-- Meta tags para GitHub Pages -->
-    <base href="/sage-2026/" />
-
-    <link rel="stylesheet" href="css/style.css" />
+    <!-- CSS e manifest com caminhos absolutos do GitHub Pages -->
+    <link rel="stylesheet" href="/SAGE-ELETIVAS/css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="manifest" href="manifest.json" />
-
-    <!-- Ícones para Apple -->
-    <link rel="apple-touch-icon" href="assets/icon-192.png" />
+    <link rel="manifest" href="/SAGE-ELETIVAS/manifest.json" />
+    <link rel="apple-touch-icon" href="/SAGE-ELETIVAS/assets/icon-192.png" />
   </head>
   <body>
     <div class="app-container">
-      <!-- Cabeçalho -->
       <header class="app-header">
         <div class="header-top">
           <div class="logo-area">
@@ -43,7 +38,6 @@
         </div>
       </header>
 
-      <!-- TELA DE SELEÇÃO DE PERFIL -->
       <section id="perfil-view" class="view active">
         <div class="login-container">
           <div class="login-box">
@@ -64,7 +58,7 @@
               "
             >
               <a
-                href="selecionar-professor.html"
+                href="/SAGE-ELETIVAS/selecionar-professor.html"
                 class="btn-primary"
                 style="
                   display: flex;
@@ -84,7 +78,7 @@
               </a>
 
               <a
-                href="selecionar-gestor.html"
+                href="/SAGE-ELETIVAS/selecionar-gestor.html"
                 class="btn-secondary"
                 style="
                   display: flex;
@@ -119,28 +113,21 @@
       </section>
     </div>
 
-    <!-- Toast -->
     <div id="toast" class="toast"></div>
 
     <script>
-      // Configurar base URL para GitHub Pages
-      const baseUrl = "/sage-2026/";
-
-      // Registrar Service Worker para PWA
+      // Service Worker
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("sw.js")
-            .then((reg) =>
-              console.log("✅ Service Worker registrado:", reg.scope),
-            )
+            .register("/SAGE-ELETIVAS/sw.js")
+            .then((reg) => console.log("✅ Service Worker registrado"))
             .catch((err) => console.log("❌ Erro no Service Worker:", err));
         });
       }
     </script>
-    <script src="js/utils.js"></script>
+    <script src="/SAGE-ELETIVAS/js/utils.js"></script>
     <script>
-      // Carregar tema salvo
       if (typeof window.carregarTheme === "function") {
         window.carregarTheme();
       }

@@ -1,5 +1,3 @@
-// js/storage.js - Gerenciamento de estado
-
 let state = {
   alunos: [],
   professores: [],

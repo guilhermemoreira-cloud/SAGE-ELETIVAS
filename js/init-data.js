@@ -1,5 +1,3 @@
-// js/init-data.js - Dados iniciais
-
 (function () {
   console.log("📦 Verificando dados iniciais...");
 

@@ -7,22 +7,20 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
 
-    <!-- Meta tags PWA -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#2c5f2d" />
 
     <title>SAGE 2026 - Diário do Professor</title>
-    <base href="/sage-2026/" />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="/SAGE-ELETIVAS/css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="/SAGE-ELETIVAS/manifest.json" />
 
     <style>
-      /* Toggle Switch */
       .toggle-switch {
         position: relative;
         display: inline-block;
@@ -130,7 +128,6 @@
   </head>
   <body>
     <div class="app-container">
-      <!-- Cabeçalho -->
       <header class="app-header">
         <div class="header-top">
           <div class="logo-area">
@@ -161,7 +158,6 @@
         </div>
       </header>
 
-      <!-- MÓDULO PROFESSOR -->
       <section class="view active">
         <div class="professor-dashboard">
           <div class="dashboard-header">
@@ -172,7 +168,6 @@
             <div class="professor-info-header" id="professorInfoHeader"></div>
           </div>
 
-          <!-- Tabs do professor -->
           <div class="professor-tabs">
             <button class="tab-btn active" onclick="mudarTab('dashboard')">
               <i class="fas fa-home"></i> Dashboard
@@ -182,7 +177,6 @@
             </button>
           </div>
 
-          <!-- TAB DASHBOARD -->
           <div id="tab-dashboard" class="tab-pane active">
             <h3>Minhas Eletivas - <span id="semestreAtual">2026.1</span></h3>
             <div class="eletivas-cards" id="professorEletivasCards">
@@ -190,7 +184,6 @@
             </div>
           </div>
 
-          <!-- TAB HISTÓRICO -->
           <div id="tab-historico" class="tab-pane">
             <h3>Histórico de Aulas</h3>
 
@@ -222,7 +215,6 @@
             </div>
           </div>
 
-          <!-- AÇÕES DA ELETIVA SELECIONADA -->
           <div
             id="acoesEletiva"
             style="
@@ -243,7 +235,6 @@
       </section>
     </div>
 
-    <!-- MODAL DE FREQUÊNCIA -->
     <div id="modalFrequencia" class="modal">
       <div class="modal-content" style="max-width: 800px">
         <div class="modal-header">
@@ -288,7 +279,6 @@
       </div>
     </div>
 
-    <!-- MODAL DE NOTAS -->
     <div id="modalNotas" class="modal">
       <div class="modal-content" style="max-width: 800px">
         <div class="modal-header">
@@ -339,7 +329,6 @@
       </div>
     </div>
 
-    <!-- MODAL DETALHES -->
     <div id="modalDetalhes" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -351,7 +340,6 @@
       </div>
     </div>
 
-    <!-- MODAL CONFIRMAÇÃO -->
     <div id="modalConfirmacao" class="modal">
       <div class="modal-content modal-small">
         <div class="modal-header">
@@ -367,20 +355,16 @@
       </div>
     </div>
 
-    <!-- TOAST -->
     <div id="toast" class="toast"></div>
 
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-    <!-- Scripts do sistema -->
-    <script src="js/utils.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/init-data.js"></script>
-    <script src="js/sincronizacao.js"></script>
-    <script src="js/firebase-config.js"></script>
-    <script src="js/firebase-service.js"></script>
-    <script src="js/professor.js"></script>
+    <script src="/SAGE-ELETIVAS/js/utils.js"></script>
+    <script src="/SAGE-ELETIVAS/js/storage.js"></script>
+    <script src="/SAGE-ELETIVAS/js/init-data.js"></script>
+    <script src="/SAGE-ELETIVAS/js/sincronizacao.js"></script>
+    <script src="/SAGE-ELETIVAS/js/firebase-config.js"></script>
+    <script src="/SAGE-ELETIVAS/js/firebase-service.js"></script>
+    <script src="/SAGE-ELETIVAS/js/professor.js"></script>
   </body>
 </html>
